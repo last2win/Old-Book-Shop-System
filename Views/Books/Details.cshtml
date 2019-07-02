@@ -1,0 +1,112 @@
+﻿@model BookShop.Models.Book
+
+@{
+    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.Name;
+    var name = Model.Name;
+    var searchName = "http://search.dangdang.com/?key=" + name + "&act=input";
+    var email = ((string)ViewData["userId"]).Substring(0,15) + "@chat.com";
+    var email2 = ((string)ViewData["userId2"]).Substring(0,15) + "@chat.com";
+//    var name=Html.DisplayFor(model => model.Name)
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SoldPrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SoldPrice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+        <dt class="col-sm-2">
+            通过当当了解更多：
+        </dt>
+        <dd class="col-sm-10">
+            <a target="_blank" rel="noopener noreferrer" href=@searchName>@name</a>
+
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
+<div class="chatbubble">
+    <div class="unexpanded">
+        <div class="title">联系卖家</div>
+    </div>
+    <div class="expanded chat-window">
+        <div class="login-screen container">
+            <form id="loginScreenForm">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="fullname" placeholder="Name*" required>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" type="email"  id="email" value="@email" >
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="email2" id="email2" value="@email2" >
+                </div>
+                <button type="submit" class="btn btn-block btn-primary">Start Chat</button>
+                <input type="hidden" id="postId" name="postId" value="34657">
+            </form>
+        </div>
+        <div class="chats">
+            <div class="loader-wrapper">
+                <div class="loader">
+                    <span>{</span><span>}</span>
+                </div>
+            </div>
+            <ul class="messages clearfix">
+            </ul>
+            <div class="input">
+                <form class="form-inline" id="messageSupport">
+                    <div class="form-group">
+                        <input type="text" autocomplete="off" class="form-control" id="newMessage" placeholder="Enter Message">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>
+<script src="https://getbootstrap.com/docs/4.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@0.17.0/dist/axios.min.js"></script>
+<script src=" https://unpkg.com/@@pusher/chatkit-client"></script>
+
+<script src="~/js/chat.js"></script>
+<link rel="stylesheet" href="~/css/chat.css">
